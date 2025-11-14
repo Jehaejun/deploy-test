@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spring-app
-          image: jhjun07/spring-k8s-demo:01017c8eeae42666ebef326d107c68a412f88405
+          image: jhjun07/spring-k8s-demo:62fcbe6a46780fa0c049effcf69da2d0fcc22943
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
