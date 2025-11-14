@@ -1,35 +1,63 @@
-name: CI - Spring Boot
+name: CI - Build & Push Docker Image (Gradle + Docker Hub)
 
 on:
   push:
-    branches: [ "main", "develop" ]   # 원하면 브랜치 조정
+    branches: [ "main", "develop" ]   # 원하는 브랜치로 조정
   pull_request:
     branches: [ "main", "develop" ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-and-push:
+    runs-on: ubuntu-latest   # GitHub 호스티드 러너 사용
 
     steps:
       # 1) 코드 체크아웃
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2) JDK 설치 (버전은 프로젝트에 맞게)
+      # 2) JDK 설정 (프로젝트 버전에 맞게 수정)
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '21'           # 17/11 등 사용 중인 버전으로 변경 가능
           distribution: 'temurin'
           cache: 'gradle'
 
-      # 3) 빌드
-      - name: Build with Gradle
-        run: ./gradlew clean build
+      # 3) Gradle 빌드
+      - name: Grant execute permission for Gradle wrapper
+        run: chmod +x ./gradlew
 
-      # 4) (옵션) JAR 파일을 아티팩트로 업로드
+      - name: Build with Gradle
+        run: ./gradlew clean build --no-daemon
+
+      # 4) Docker 이미지 태그 설정 (커밋 SHA 기반)
+      - name: Set image tag
+        run: echo "IMAGE_TAG=${GITHUB_SHA}" >> $GITHUB_ENV
+
+      # 5) Docker Hub 로그인
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 6) Docker 이미지 빌드
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/spring-k8s-demo:${IMAGE_TAG} \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/spring-k8s-demo:latest \
+            .
+
+      # 7) Docker Hub로 푸시
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-k8s-demo:${IMAGE_TAG}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-k8s-demo:latest
+
+      # 8) (옵션) 빌드 산출물(JAR) 아티팩트로 보관
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: spring-boot-jar
-          path: target/*.jar
+          path: build/libs/*.jar
