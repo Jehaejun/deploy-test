@@ -1,0 +1,35 @@
+name: CI - Spring Boot
+
+on:
+  push:
+    branches: [ "main", "develop" ]   # 원하면 브랜치 조정
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) 코드 체크아웃
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2) JDK 설치 (버전은 프로젝트에 맞게)
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      # 3) 빌드
+      - name: Build with Gradle
+        run: ./gradlew clean build
+
+      # 4) (옵션) JAR 파일을 아티팩트로 업로드
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: spring-boot-jar
+          path: target/*.jar
