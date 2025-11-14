@@ -1,16 +1,13 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: v1
+kind: Service
 metadata:
-  name: spring-app-ingress
+  name: spring-app
+  namespace: default
 spec:
-  rules:
-    - host: spring.local
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: spring-app-svc
-                port:
-                  number: 80
+  type: ClusterIP
+  selector:
+    app: spring-app
+  ports:
+    - name: http
+      port: 8080       # 클러스터 내부에서 접근할 포트
+      targetPort: 8080 # 컨테이너 포트
