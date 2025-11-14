@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spring-app
-          image: mydockerhubid/spring-k8s-demo:latest   # CI에서 push한 이미지
+          image: jhjun07/spring-k8s-demo:latest   # CI에서 push한 이미지
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
