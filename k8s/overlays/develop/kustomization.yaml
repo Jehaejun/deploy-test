@@ -4,11 +4,10 @@ kind: Kustomization
 resources:
   - ../../base
 
-# dev에서 사용할 이미지 태그 (CI가 여기 newTag만 바꿔줌)
 images:
   - name: spring-k8s-demo
     newName: jhjun07/spring-k8s-demo
-    newTag: 42975c809690e2e5ccae914c824824e0232464c0
+    newTag: 42975c809690e2e5ccae914c824824e0232464c0 # (CI가 newTag를 변경)
 
 patches:
   - path: patch-deployment.yaml

@@ -16,6 +16,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: spring-app
+                name: spring-app-service
                 port:
                   number: 8080
