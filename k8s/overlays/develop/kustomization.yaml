@@ -8,7 +8,7 @@ resources:
 images:
   - name: spring-k8s-demo
     newName: jhjun07/spring-k8s-demo
-    newTag: dev-local  # 초기값 (CI가 sed로 치환)
+    newTag: 28d5184690ab34d3bb997ad78bf3bdff0c0d9dec
 
 patches:
   - path: patch-deployment.yaml
