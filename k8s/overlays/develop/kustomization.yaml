@@ -7,7 +7,7 @@ resources:
 images:
   - name: spring-k8s-demo
     newName: jhjun07/spring-k8s-demo
-    newTag: 42975c809690e2e5ccae914c824824e0232464c0 # (CI가 newTag를 변경)
+    newTag: f9170fdeb6462734cc27a94a9684e384f7d2d5c0
 
 patches:
   - path: patch-deployment.yaml
