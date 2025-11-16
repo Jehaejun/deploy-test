@@ -9,5 +9,5 @@ spec:
     app: spring-app
   ports:
     - name: http
-      port: 8080       # 클러스터 내부에서 접근할 포트
-      targetPort: 8080 # 컨테이너 포트
+      port: 8080
+      targetPort: 8080
