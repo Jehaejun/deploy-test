@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-app
+  namespace: default
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+        - name: spring-app
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod

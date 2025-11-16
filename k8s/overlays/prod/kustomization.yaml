@@ -1,8 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
 resources:
-- ../../base
+  - ../../base
+
 images:
-- name: spring-k8s-demo
-  newName: jhjun07/spring-k8s-demo
-  newTag: 4755c72e2e8495cf4b32928bc7426b4a85fb64ff
+  - name: jhjun07/spring-k8s-demo
+    newName: jhjun07/spring-k8s-demo
+    newTag: prod-local  # 초기값, tag push 시 CI가 바꿔줌
+
+patches:
+  - path: patch-deployment.yaml

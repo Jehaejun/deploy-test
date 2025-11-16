@@ -67,24 +67,14 @@ jobs:
       #    name: spring-boot-jar
       #    path: build/libs/*.jar를
 
-      - name: Install Kustomize
-        uses: imranismail/setup-kustomize@v2
-        with:
-          kustomize-version: '5.4.2'
-
-      - name: Update prod overlay image tag
-        working-directory: k8s/overlays/prod
-        run: kustomize edit set image spring-k8s-demo=${IMAGE_REPO}:${IMAGE_TAG}
-
-      - name: Commit and push manifest changes
-        env:
-          GIT_AUTHOR_NAME: github-actions
-          GIT_AUTHOR_EMAIL: actions@github.com
-          GIT_COMMITTER_NAME: github-actions
-          GIT_COMMITTER_EMAIL: actions@github.com
+      - name: Update Kustomize image tag for dev
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add k8s/overlays/prod/kustomization.yaml
-          git commit -m "Update image to ${IMAGE_TAG}" || echo "No changes to commit"
+          sed -i "s/newTag:.*/newTag: ${IMAGE_TAG}/" ${KUSTOMIZE_PATH}/kustomization.yaml
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add ${KUSTOMIZE_PATH}/kustomization.yaml
+          git commit -m "chore: dev deploy ${IMAGE_TAG}" || echo "No changes to commit"
           git push
