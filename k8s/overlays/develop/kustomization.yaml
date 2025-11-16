@@ -8,7 +8,7 @@ resources:
 images:
   - name: spring-k8s-demo
     newName: jhjun07/spring-k8s-demo
-    newTag: f6e3189aab10dc8abbc98e8053313c9ed80cd785
+    newTag: 9934f3e7bb1186b9b7f84c3c5d198661c2a1a1cd
 
 patches:
   - path: patch-deployment.yaml
