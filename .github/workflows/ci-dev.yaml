@@ -69,7 +69,7 @@ jobs:
 
       - name: Update Kustomize image tag for dev
         run: |
-          sed -i "s/newTag:.*/newTag: ${IMAGE_TAG}/" ${KUSTOMIZE_PATH}/kustomization.yaml
+          sed -i "s/newTag:.*/newTag: ${IMAGE_TAG}/" /k8s/overlays/develop/kustomization.yaml
 
       - name: Commit and push changes
         run: |
