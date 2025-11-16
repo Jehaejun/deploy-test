@@ -5,7 +5,7 @@ resources:
   - ../../base
 
 images:
-  - name: jhjun07/spring-k8s-demo
+  - name: spring-k8s-demo
     newName: jhjun07/spring-k8s-demo
     newTag: prod-local  # 초기값, tag push 시 CI가 바꿔줌
 

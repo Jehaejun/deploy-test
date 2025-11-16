@@ -6,7 +6,7 @@ resources:
 
 # dev에서 사용할 이미지 태그 (CI가 여기 newTag만 바꿔줌)
 images:
-  - name: jhjun07/spring-k8s-demo
+  - name: spring-k8s-demo
     newName: jhjun07/spring-k8s-demo
     newTag: dev-local  # 초기값 (CI가 sed로 치환)
 
