@@ -69,12 +69,12 @@ jobs:
 
       - name: Update Kustomize image tag for dev
         run: |
-          sed -i "s/newTag:.*/newTag: ${IMAGE_TAG}/" /k8s/overlays/develop/kustomization.yaml
+          sed -i "s/newTag:.*/newTag: ${IMAGE_TAG}/" k8s/overlays/develop/kustomization.yaml
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
-          git add ${KUSTOMIZE_PATH}/kustomization.yaml
+          git add k8s/overlays/develop/kustomization.yaml
           git commit -m "chore: dev deploy ${IMAGE_TAG}" || echo "No changes to commit"
           git push
