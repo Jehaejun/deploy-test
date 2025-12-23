@@ -16,13 +16,6 @@ spec:
     spec:
       containers:
         - name: spring-app # Pod 내부에서 각 컨테이너의 이름 (단순 식별자)
-          image: jhjun07/spring-k8s-demo:latest
+          image: spring-k8s-demo:latest
           ports:
             - containerPort: 8080
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "256Mi"
-            limits:
-              cpu: "500m"
-              memory: "512Mi"

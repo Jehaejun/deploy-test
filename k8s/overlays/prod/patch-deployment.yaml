@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: spring-app
-  namespace: default
 spec:
   replicas: 3
   template:
@@ -12,3 +11,10 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: prod
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
