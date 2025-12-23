@@ -5,7 +5,7 @@ metadata:
   labels:
     app: spring-app # Deployment에 붙는 라벨 (없어도 동작은 정상)
 spec:
-  replicas: 1  # 기본값 (overlay에서 변경 예정)
+  replicas: 1
   selector:
     matchLabels:
       app: spring-app # Deployment가 어떤 Pod를 관리할지 지정하는 기준 (template의 labels 와 일치해야 한다)
@@ -13,11 +13,16 @@ spec:
     metadata:
       labels:
         app: spring-app # 새로 만들어지는 Pod에 붙는 라벨 (Service가 이걸 보고 연결)
-
     spec:
       containers:
         - name: spring-app # Pod 내부에서 각 컨테이너의 이름 (단순 식별자)
-          image: spring-k8s-demo
+          image: jhjun07/spring-k8s-demo:latest
           ports:
             - containerPort: 8080
-          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
