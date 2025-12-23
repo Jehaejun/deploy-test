@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: spring-app # Pod 내부에서 각 컨테이너의 이름 (단순 식별자)
-          image: spring-k8s-demo:latest
+          image: spring-k8s-demo
           ports:
             - containerPort: 8080
