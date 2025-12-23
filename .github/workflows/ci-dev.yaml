@@ -53,10 +53,10 @@ jobs:
 
       - name: Build Docker image
         run: |
-          - docker build \
-          -t ${IMAGE_REPO}:${IMAGE_TAG} \
-          -t ${IMAGE_REPO}:latest \
-          .
+          docker build \
+            -t ${IMAGE_REPO}:${IMAGE_TAG} \
+            -t ${IMAGE_REPO}:latest \
+            .
 
       # 7) Docker Hub로 푸시
       - name: Push Docker image
