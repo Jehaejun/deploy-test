@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: spring-app-ingress
+  name: spring-app
   namespace: services-dev
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
